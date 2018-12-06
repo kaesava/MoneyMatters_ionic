@@ -1,16 +1,9 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
-// Define collection and schema for Budgets
-let Budget = new Schema({
-  desc: {
-    type: String
-  },
-  amt: {
-    type: Number
-  }
-},{
-    collection: 'budget'
+var budgetSchema = new mongoose.Schema({
+  desc: String,
+  amt: Number,
+  created_at: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Budget', Budget);
+module.exports = mongoose.model('Budget', budgetSchema);

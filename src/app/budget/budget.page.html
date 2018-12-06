@@ -15,8 +15,8 @@
       <div class="budget-desc">
         {{budget.desc}} (${{budget.amt}})
       </div>
-      <div slot="end"> <ion-button clear color="primary" (click)="editBudget(budget.id)">Edit</ion-button> </div>
-      <div slot="end"> <ion-button clear color="danger" (click)="deleteBudget(budget.id)">Delete</ion-button></div>
+      <div slot="end"> <ion-button clear color="primary" (click)="editBudget(budget._id)">Edit</ion-button> </div>
+      <div slot="end"> <ion-button clear color="danger" (click)="deleteBudget(budget._id)">Delete</ion-button></div>
     </ion-item>
   </ion-list>
     <ion-fab>

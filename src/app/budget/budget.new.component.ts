@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Budget } from './budget';
@@ -11,6 +11,7 @@ import { MockBudgetService } from './budget.mock.service';
   styleUrls: ['./budget.page.scss']
 })
 
+
 export class BudgetNewComponent implements OnInit {
 
   new_budget_form: FormGroup;
@@ -20,7 +21,6 @@ export class BudgetNewComponent implements OnInit {
     private router: Router,
     public formBuilder: FormBuilder,
     private budgetService: BudgetService,
-    private mockBudgetService: MockBudgetService,
   ) { }
 
   ngOnInit() {
@@ -31,8 +31,17 @@ export class BudgetNewComponent implements OnInit {
   }
 
   createBudget(value){
-    this.mockBudgetService.createBudget(value.desc, value.amt);
-    this.new_budget_form.reset();
+
+     // MOCK-UP: this.budgetService.updateBudget(this.budget.id, value.desc, value.amt);
+     this.budgetService.createBudget(value.desc, value.amt).subscribe((budget: Budget) => {
+      if(budget) {
+        this.budget = budget;
+        console.log("Budget created successfully");
+      } else {
+        console.log("could not created Budget")
+      }
+    });
+    this.sendBudgetToListComponent();
     this.goBack();
   }
 
@@ -42,5 +51,11 @@ export class BudgetNewComponent implements OnInit {
 
   goBack(){
     this.router.navigate(['/budgets']);
+  }
+
+  @Output() budgetEvent = new EventEmitter<Budget>();
+
+  sendBudgetToListComponent() {
+    this.budgetEvent.emit(this.budget)
   }
 }

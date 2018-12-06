@@ -23,27 +23,35 @@ export class BudgetEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public formBuilder: FormBuilder,
-    private budgetService: BudgetService,
-    private mockBudgetService: MockBudgetService,
+    private budgetService: BudgetService
   ) { }
 
   ngOnInit() {
+    // MOCK-UP: this.budget = this.budgetService.getBudget(params._id);
 
-    this.route.params.subscribe(params => {
-      let id = params.id;
-      this.budget = this.mockBudgetService.getBudget(id);
-      this.edit_budget_form = this.formBuilder.group({
-        desc: new FormControl(this.budget.desc, Validators.required),
-        amt: new FormControl(this.budget.amt, Validators.required),
+    this.route.params.subscribe( params => {
+      this.budgetService.getBudget(params['id']).subscribe((budget: Budget) => {
+        this.budget = budget;
+        this.edit_budget_form = this.formBuilder.group({
+          desc: new FormControl(this.budget.desc, Validators.required),
+          amt: new FormControl(this.budget.amt, Validators.required),
+        });
       });
     });
   }
   
   updateBudget(value){
-    //this.budgetService.updateItem(value);
-    this.budget.desc = value.desc;
-    this.budget.amt = value.amt;
-    this.mockBudgetService.updateBudget(this.budget.id, this.budget.desc, this.budget.amt);
+  
+    // MOCK-UP: this.budgetService.updateBudget(this.budget.id, value.desc, value.amt);
+    this.budgetService.updateBudget(this.budget._id, value.desc, value.amt).subscribe((data: Budget) => {
+      if(data) {
+        this.budget.desc = data.desc;
+        this.budget.amt = data.amt;
+        console.log("Budget updated successfully");
+      } else {
+        console.log("could not update Budget")
+      }
+    });
     this.goBack();
   }
 

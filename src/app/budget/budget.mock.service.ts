@@ -13,12 +13,12 @@ export class MockBudgetService {
 
   budgets: Array<Budget> = [
     {
-      'id': 1,
+      '_id': "1",
       'desc': "Example 1",
       'amt': 100
     },
     {
-      'id': 2,
+      '_id': "2",
       'desc': "Example 2",
       'amt': 200
     }
@@ -27,28 +27,28 @@ export class MockBudgetService {
     return this.budgets;
   }
 
-  getBudget(id : number) {
-    let budgetIndex = this.budgets.findIndex(item => item.id == id);
+  getBudget(_id : string) {
+    let budgetIndex = this.budgets.findIndex(item => item._id == _id);
     return this.budgets[budgetIndex];
   }
 
   createBudget(desc : string, amt : number) {
     let randomId = Math.round(Math.random()*100);
     this.budgets.push({
-      'id': randomId,
+      '_id': String(randomId),
       'desc': desc,
       'amt': amt
     });
   }
 
-  updateBudget(id: number, desc : string, amt : number) {
-    let budgetIndex = this.budgets.findIndex(item => item.id == id);
+  updateBudget(_id: string, desc : string, amt : number) {
+    let budgetIndex = this.budgets.findIndex(item => item._id == _id);
     this.budgets[budgetIndex].desc = desc;
     this.budgets[budgetIndex].amt = amt;
   }
 
-  deleteBudget(id : number) {
-    const budgetIndex: number = this.budgets.findIndex(budget => budget.id == id);
+  deleteBudget(_id : string) {
+    const budgetIndex: number = this.budgets.findIndex(budget => budget._id == _id);
     if (budgetIndex !== -1) {
         this.budgets.splice(budgetIndex, 1);
     } 

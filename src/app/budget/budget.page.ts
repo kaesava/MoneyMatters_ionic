@@ -13,27 +13,30 @@ import { Router } from '@angular/router';
 export class BudgetPage implements OnInit {
 
   private budgets: Budget[];
-  constructor(private router: Router, private budgetservice: BudgetService, private mockbudgetservice: MockBudgetService) {}
+
+  constructor(private router: Router, private budgetservice: BudgetService) {}
 
   ngOnInit() {
     // download back budgets
-    this.budgets = this.mockbudgetservice.getBudgets();
+    //MOCKUP: this.budgets = this.budgetservice.getBudgets();
 
-    //this.budgetservice.getBudgets().subscribe((data: Budget[]) => {
-    //  this.budgets = data;
-    //});
+    this.budgetservice.getBudgets().subscribe((budgets: Budget[]) => {
+      if(budgets) console.log('Budgets loaded successfully'); else console.log('Could not load Budgets');
+      this.budgets = budgets;
+    });
   }
+  
   new(){
     this.router.navigate(['/budgets/new']);
   }
-  editBudget(id) {
-    this.router.navigate([`/budgets/edit/${id}`]);
+  editBudget(_id) {
+    this.router.navigate([`/budgets/edit/${_id}`]);
   }
-  deleteBudget(id) {
-    this.mockbudgetservice.deleteBudget(id);
-    //this.budgetservice.deleteBudget(id).subscribe(res => {
-    //  console.log('Budget deleted successfully');
-    //});
+  deleteBudget(_id) {
+    // MOCKUP: this.budgetservice.deleteBudget(id);
+    this.budgetservice.deleteBudget(_id).subscribe(budget => {
+      if(budget) console.log('Budget deleted successfully'); else console.log('Could not delete Budget');
+    });
   }
 
   // add back when alpha.4 is out

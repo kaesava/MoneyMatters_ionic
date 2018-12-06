@@ -9,46 +9,27 @@ import { map } from 'rxjs/operators';
 
 export class BudgetService {
 
-  uri = 'http://localhost:4000/budgets';
+  uri = 'http://localhost:4000/api/budgets';
 
   constructor(private http: HttpClient) { }
 
-  getBudget(id : number) {
+  getBudget(id : string) {
     return this.http.get<Budget>(`${this.uri}/${id}`);
   }
 
   getBudgets() {
-    return this.http.get<Budget[]>(`${this.uri}/index`);
+    return this.http.get<Budget[]>(`${this.uri}/`);
   }
 
   createBudget(desc : string, amt : number) {
-    this.http.post<any>(`${this.uri}/create`, {desc, amt})
-    .pipe(map(budget => {
-      // login successful if there's a user in the response
-      if (budget) {
-        console.log('Done');
-      }
-      else {
-        console.log('Failed');
-      }
-      return budget;
-  }));
+    return this.http.post<any>(`${this.uri}/`, {desc, amt});
   }
 
-  updateBudget(id: number, desc : string, amt : number) {
-    const obj = {
-      desc: desc,
-      amt: amt
-    };
-    this
-      .http
-      .put(`${this.uri}/${id}`, obj)
-      .subscribe(res => console.log('Done'));
+  updateBudget(id: string, desc : string, amt : number) {
+    return this.http.put<any>(`${this.uri}/${id}`, {desc, amt});
   }
 
-    deleteBudget(id : number) {
-      return this
-                .http
-                .delete(`${this.uri}/${id}`);
+ deleteBudget(id : string) {
+      return this.http.delete(`${this.uri}/${id}`);
     }
 }
