@@ -12,10 +12,11 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule'
   },
   {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+    path: 'budgets',
+    loadChildren: './budget/budget.module#BudgetPageModule'
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

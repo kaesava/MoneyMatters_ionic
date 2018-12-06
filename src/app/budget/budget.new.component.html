@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>New Budget</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="new_budget_form" (submit)="createBudget(new_budget_form.value)">
+    <ion-item>
+      <ion-label color="primary" position="floating">Description</ion-label>
+      <ion-input type="text" formControlName="desc" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="floating">Amount</ion-label>
+      <ion-input type="text" formControlName="amt" required></ion-input>
+    </ion-item>
+    <div>
+      <ion-button class="submit-btn" clear color="danger" type="submit" [disabled]="!new_budget_form.valid">Create</ion-button>
+      <ion-button class="submit-btn" clear color="primary" type="button" (click)="cancel()">Cancel</ion-button>
+    </div>
+  </form>
+</ion-content>

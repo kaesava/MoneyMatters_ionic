@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Edit Budget</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form *ngIf="budget" [formGroup]="edit_budget_form" (submit)="updateBudget(edit_budget_form.value)">
+    <ion-item>
+      <ion-label color="primary" position="floating">Description</ion-label>
+      <ion-input type="text" formControlName="desc" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="floating">Amount</ion-label>
+      <ion-input type="number" formControlName="amt" required></ion-input>
+    </ion-item>
+    <div>
+      <ion-button class="submit-btn" clear color="danger" type="submit" [disabled]="!edit_budget_form.valid">Update</ion-button>
+      <ion-button class="submit-btn" clear color="primary" type="button" (click)="cancel()">Cancel</ion-button>
+    </div>
+  </form>
+</ion-content>
