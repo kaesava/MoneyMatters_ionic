@@ -17,7 +17,7 @@
       <ion-label color="primary" position="floating">Amount</ion-label>
       <ion-input type="text" formControlName="amt" required></ion-input>
     </ion-item>
-    <div>
+    <div slot="end">
       <ion-button class="submit-btn" clear color="danger" type="submit" [disabled]="!new_budget_form.valid">Create</ion-button>
       <ion-button class="submit-btn" clear color="primary" type="button" (click)="cancel()">Cancel</ion-button>
     </div>
